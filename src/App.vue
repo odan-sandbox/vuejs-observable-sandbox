@@ -1,18 +1,29 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+    <div>
+      <button @click="click">click me!</button>
+    </div>
+    <div v-if="hasError">{{ errorMessage }}</div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import HelloWorld from "./components/HelloWorld.vue";
 
 export default Vue.extend({
   name: "App",
-  components: {
-    HelloWorld
+  methods: {
+    click() {
+      throw new Error("Error! yabai!");
+    }
+  },
+  computed: {
+    hasError() {
+      return this.$error.hasError;
+    },
+    errorMessage() {
+      return this.$error.message;
+    }
   }
 });
 </script>
